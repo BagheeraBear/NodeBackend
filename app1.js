@@ -1,7 +1,7 @@
 // modules
 
 // require
-// core module
+// node core module
 const fs = require("fs");
 // fs.writeFileSync('notes.txt', 'My name is Uffe');
 

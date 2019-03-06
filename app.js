@@ -1,16 +1,10 @@
-const add = require("./utils.js");
+const chalk = require("chalk");
 const getNotes = require("./notes.js");
 
-const getArticles = require("./articles.js");
-const getCustomers = require("./customers.js");
+const command = process.argv[2];
 
-// const name = "Uffe";
-const text = getNotes();
-console.log(text);
-
-console.log(getCustomers());
-console.log(getArticles());
-
-// challenge 2
-// const text = getNotes();
-//console.log(text);
+if (command === "add") {
+  console.log("Note added");
+} else if (command === "remove") {
+  console.log("Note removed");
+}

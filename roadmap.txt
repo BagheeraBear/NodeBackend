@@ -1,0 +1,9 @@
+1. Node: mead node course: The Complete Node.js Developer Course (3rd Edition)
+
+2. React: Scrimba/Colt/mead
+
+3. GraphQL
+
+4. MongoDB
+
+
