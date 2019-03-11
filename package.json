@@ -1,7 +1,7 @@
 {
   "name": "node3-git",
   "version": "1.0.0",
-  "description": "",
+  "description": "Building a backend API in nodejs - To be used in the future, by a Frontend based on React",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
