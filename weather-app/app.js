@@ -6,16 +6,16 @@ const url =
 
 // Make request
 request({ url: url, json: true }, (error, response) => {
-  const tempdata = response.body.currently.temperature;
-  const probdata = response.body.currently.precipProbability;
   if (error) {
-    ("There was an error retrieving your info dude!");
+    console.log("There was an error retrieving your info dude!");
   } else if (response.body.error) {
     console.log("Unable to find your data");
   } else {
     //console.log(response);
     // console.log(data)
     console.log("------------");
+    const tempdata = response.body.currently.temperature;
+    const probdata = response.body.currently.precipProbability;
 
     console.log(response.body.daily.data[0].summary);
     console.log("It is currently: " + tempdata + " degrees out");
@@ -28,10 +28,19 @@ request({ url: url, json: true }, (error, response) => {
     "https://api.mapbox.com/geocoding/v5/mapbox.places/stockholm.json?access_token=pk.eyJ1IjoidWxmc3dlZGluIiwiYSI6IkE1RVlzQnMifQ.0Pa-8iFRqrLbZp4Tl2uLyw";
 
   request({ url: mapurl, json: true }, (error, response) => {
-    const longitude = response.body.features[0].center[0];
-    const latitude = response.body.features[0].center[1];
+    if (error){
+      console.log("There was a low level error, is your internet working?")
+    }
+    else if(response.body.features.length === 0){
+      console.log("We are sorry but the place you were looking for was not found");
+      
+    }
+    else{
+      const longitude = response.body.features[0].center[0];
+      const latitude = response.body.features[0].center[1];
+      console.log("Long: " + longitude + "\nLat: " + latitude);
+    }
 
-    console.log("Long: " + longitude + "\nLat: " + latitude);
   });
 });
 

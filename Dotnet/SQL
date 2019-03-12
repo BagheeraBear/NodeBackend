@@ -1,0 +1,4 @@
+INSERT INTO dbo.Integrationlogg (Exporttype, Exportstatus, Exporttable, Itemidentity, Extitemidentity, Ftgnum, Exportservice, Timeuser)
+				VALUES(3, 2, 3,'681','Tid', 8, 1,'NOX')
+
+
