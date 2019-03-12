@@ -6,5 +6,42 @@
 // https://api.darksky.net/forecast/6c902bf517d835f075c66ac105f093d4/37.8267,-122.4233
 
 
+Mapbox Web Services
+===================
+
+Public Token:
+
+pk.eyJ1IjoidWxmc3dlZGluIiwiYSI6IkE1RVlzQnMifQ.0Pa-8iFRqrLbZp4Tl2uLyw
+
+https://docs.mapbox.com/api/
+Look for Geocoding Endpoints
+
+Example Request:
+"https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoidWxmc3dlZGluIiwiYSI6IkE1RVlzQnMifQ.0Pa-8iFRqrLbZp4Tl2uLyw"
+
+Response:
+
+features: [
+{
+id: "place.7397503093427640",
+type: "Feature",
+place_type: [
+"place"
+],
+relevance: 1,
+properties: {
+wikidata: "Q65"
+},
+text: "Los Angeles",
+place_name: "Los Angeles, California, United States",
+bbox: [
+-118.521456965901,
+33.9018913203336,
+-118.121305008073,
+34.161440999758
+],
+center: [
+-118.2439,
+34.0544
 
 
