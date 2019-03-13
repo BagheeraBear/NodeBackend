@@ -1,50 +1,19 @@
 // npm install request@2.88.0
+// Hemdashboard
+
 const request = require("request");
+const geocode = require("./utils/geocode.js");
+const forecast = require("./utils/forecast.js");
 
-const url =
-  "https://api.darksky.net/forecast/6c902bf517d835f075c66ac105f093d4/37.8267,-122.4233?units=si&lang=sv";
+geocode("Stockholm", (error, data)=>{
+  console.log("Error: ", error);
+  console.log("Data: ", data);
+  
+  forecast(data.latitude, data.longitude, (error, data) => {
+    console.log('Error', error)
+    console.log('Data', data)
+  })
 
-// Make request
-request({ url: url, json: true }, (error, response) => {
-  if (error) {
-    console.log("There was an error retrieving your info dude!");
-  } else if (response.body.error) {
-    console.log("Unable to find your data");
-  } else {
-    //console.log(response);
-    // console.log(data)
-    console.log("------------");
-    const tempdata = response.body.currently.temperature;
-    const probdata = response.body.currently.precipProbability;
+})
 
-    console.log(response.body.daily.data[0].summary);
-    console.log("It is currently: " + tempdata + " degrees out");
-    console.log("There is a " + probdata + "% chance of rain.");
-  }
 
-  // Mapbox geocoding
-
-  const mapurl =
-    "https://api.mapbox.com/geocoding/v5/mapbox.places/stockholm.json?access_token=pk.eyJ1IjoidWxmc3dlZGluIiwiYSI6IkE1RVlzQnMifQ.0Pa-8iFRqrLbZp4Tl2uLyw";
-
-  request({ url: mapurl, json: true }, (error, response) => {
-    if (error){
-      console.log("There was a low level error, is your internet working?")
-    }
-    else if(response.body.features.length === 0){
-      console.log("We are sorry but the place you were looking for was not found");
-      
-    }
-    else{
-      const longitude = response.body.features[0].center[0];
-      const latitude = response.body.features[0].center[1];
-      console.log("Long: " + longitude + "\nLat: " + latitude);
-    }
-
-  });
-});
-
-/*
-Stockholm
-18.06861 59.32944
-*/
