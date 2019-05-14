@@ -1,0 +1,29 @@
+Når rabattfilen fra Rørkjøp er tilgjengelig i Entré, så kommer jeg til å 
+erstatte Ahlsell sin rabattfil med Rørkjøp sin.
+
+ Jeg har mottatt følgende beskjed fra Rørkjøp; Alle ordrebekreftelser 
+ lastes ned fra grossist, prisfiler fra oss. Når det gjelder autofakt kan det 
+ lastes ned fra både oss og grossist.
+
+ Her er litt mer info. fra Rørkjøp;
+
+ Vet ikke om du har fått svar på dette fra kundeservice, men det ser ikke jeg isåfåll, så jeg kjører på med et svar allikevel :)
+
+ Vertsadresse: ftp.rorkjop.no
+ Brukernavn: epost@a-r-v.no
+
+Passord: yCGD2E9G
+
+ 
+
+Her finner du fire mapper:
+
+BD
+AHL
+HAS
+ONN
+I hver mappe ligger det en fil som heter "varer.txt" som er varefila i EFO/Nelfo 4.0 format, og "rabatt.txt" som er rabattfila i samme format. "HAS" er for ordens skyld Heidenreich, de andre er Brødrene Dahl, Ahlsell og Onninen.
+
+ 
+
+ 
