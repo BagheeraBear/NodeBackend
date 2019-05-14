@@ -43,10 +43,15 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/weather", (req, res) => {
-  res.send([
+  if(!req.query.address) {
+      return res.send('You did not specify an address')
+  }
+
+    res.send([
     {
       location: "stockholm",
-      forecast: "it is going to be sunny all day long, time for a bath"
+      forecast: "it is going to be sunny all day long, time for a bath",
+      query: req.query.address
     },
     {
       location: "prague",
@@ -67,6 +72,18 @@ app.get("/customers", (req, res) => {
     }
   ]);
 });
+
+app.get('/products', (req, res) => {
+  
+    if(!req.query.prodnumber) {
+        return res.send("You did not provide a productnumber")
+    }
+    console.log(req.query.prodnumber)
+    res.send({
+      products: []
+  })
+})
+
 
 app.get("/help/*", (req, res) => {
   res.render('404', {
