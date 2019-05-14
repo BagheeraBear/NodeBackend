@@ -12,7 +12,7 @@ const forecast = (longitude, latitude, callback) => {
       callback("Unable to find your data in response data");
     } 
     else {
-      console.log(response.body)
+      //console.log(response.body)
       callback(undefined, response.body.daily.data[0].summary + "Temperaturen är: " + response.body.currently.temperature)
     }
  })
