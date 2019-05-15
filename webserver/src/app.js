@@ -1,108 +1,101 @@
-const path = require("path");
-const hbs = require("hbs");
-const express = require("express");
+const path = require('path')
+const express = require('express')
+const hbs = require('hbs')
+const geocode = require('./utils/geocode')
+const forecast = require('./utils/forecast')
 
-const app = express();
+const app = express()
 
-// Paths for Express confog
-const viewPath = path.join(__dirname, "../templates/views");
-const publicPath = path.join(__dirname, "../public");
-const partialsPath = path.join(__dirname, "../templates/partials");
+// Define paths for Express config
+const publicDirectoryPath = path.join(__dirname, '../public')
+const viewsPath = path.join(__dirname, '../templates/views')
+const partialsPath = path.join(__dirname, '../templates/partials')
 
-// Setup handlebars and views location
-app.set("view engine", "hbs");
-app.set("views", viewPath);
-hbs.registerPartials(partialsPath);
+// Setup handlebars engine and views location
+app.set('view engine', 'hbs')
+app.set('views', viewsPath)
+hbs.registerPartials(partialsPath)
 
-// console.log(path.join(__dirname, '../public'))
-// console.log(__dirname);
+// Setup static directory to serve
+app.use(express.static(publicDirectoryPath))
 
-// Customize the server - Serve up the public-directory  // Setup directory to serve
-app.use(express.static(path.join(__dirname, "../public")));
-
-app.get("", (req, res) => {
-  res.render("index", {
-    title: "Weather App",
-    name: "Uffe Swedin"
-  });
-});
-
-app.get("/help", (req, res) => {
-  res.render("help", {
-    title: "Help",
-    name: "Uffe",
-    helpmessage: "You seem to need some help, yes?"
-  });
-});
-
-app.get("/about", (req, res) => {
-  res.render("about", {
-    title: "About",
-    name: "Uffe"
-  });
-});
-
-app.get("/weather", (req, res) => {
-  if(!req.query.address) {
-      return res.send('You did not specify an address')
-  }
-
-    res.send([
-    {
-      location: "stockholm",
-      forecast: "it is going to be sunny all day long, time for a bath",
-      query: req.query.address
-    },
-    {
-      location: "prague",
-      forecast: "it is probably going to rain very much"
-    }
-  ]);
-});
-
-app.get("/customers", (req, res) => {
-  res.send([
-    {
-      name: "Skalbolaget AB",
-      adress: "Nullvägen 67"
-    },
-    {
-      name: "Storbanken AB",
-      adress: "Storgatan 56"
-    }
-  ]);
-});
-
-app.get('/products', (req, res) => {
-  
-    if(!req.query.prodnumber) {
-        return res.send("You did not provide a productnumber")
-    }
-    console.log(req.query.prodnumber)
-    res.send({
-      products: []
-  })
+app.get('', (req, res) => {
+    res.render('index', {
+        title: 'Weather',
+        name: 'Andrew Mead'
+    })
 })
 
+app.get('/about', (req, res) => {
+    res.render('about', {
+        title: 'About Me',
+        name: 'Andrew Mead'
+    })
+})
 
-app.get("/help/*", (req, res) => {
-  res.render('404', {
-      helptext: "Your helptext is not found, we are sorry about that",
-      name: "Uffe",
-      title: "Help-pages"
-  })
-});
+app.get('/help', (req, res) => {
+    res.render('help', {
+        helpText: 'This is some helpful text.',
+        title: 'Help',
+        name: 'Andrew Mead'
+    })
+})
 
-app.get("*", (req, res) => {
-  res.render('404', {
-      helptext: 'Sorry, but the page you are looking for does not live here',
-      title: "Four-O-four-page",
-      name: 'Uffe'
-  });
-});
+app.get('/weather', (req, res) => {
+    if (!req.query.address) {
+        return res.send({
+            error: 'You must provide an address!'
+        })
+    }
+
+    geocode(req.query.address, (error, { latitude, longitude, location }) => {
+        if (error) {
+            return res.send({ error })
+        }
+
+        forecast(latitude, longitude, (error, forecastData) => {
+            if (error) {
+                return res.send({ error })
+            }
+
+            res.send({
+                forecast: forecastData,
+                location,
+                address: req.query.address
+            })
+        })
+    })
+})
+
+app.get('/products', (req, res) => {
+    if (!req.query.search) {
+        return res.send({
+            error: 'You must provide a search term'
+        })
+    }
+
+    console.log(req.query.search)
+    res.send({
+        products: []
+    })
+})
+
+app.get('/help/*', (req, res) => {
+    res.render('404', {
+        title: '404',
+        name: 'Andrew Mead',
+        errorMessage: 'Help article not found.'
+    })
+})
+
+app.get('*', (req, res) => {
+    res.render('404', {
+        title: '404',
+        name: 'Andrew Mead',
+        errorMessage: 'Page not found.'
+    })
+})
 
 app.listen(3000, () => {
-  console.log("Server is up on port 3000");
-});
-
-//
+    console.log('Server is up on port 3000.')
+})
